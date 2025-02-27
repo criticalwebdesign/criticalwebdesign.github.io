@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>...</title>
+
+	<!-- 
+    Title: JS Link Shortener
+    Author: Owen Mundy
+    Date: 2025
+    License: MIT
+    -->
+
+	<style>
+		body {
+			font-family: sans-serif;
+		}
+	</style>
+</head>
+<body>
+	<div>
+
+	</div>
+
+	<script>
+
+		(async () => {
+
+			const links = await fetch("./data.json").then(data => data.json());
+			var url = new URL(window.location);
+			const hash = url.hash.replace("#", "");
+			// console.log(hash);
+			if (links[hash]) {
+
+				// IF #HASH, FORWARD TO LINK
+
+				// console.log(links[hash]);
+				window.location.replace(links[hash].url);
+			} else {
+
+				// DISPLAY ALL LINKS
+
+				let str = "";
+				str += `<table>`;
+				for (var slug in links) {
+					str += `<tr><td><a href="./#${slug}">${slug}</a></td>`;
+					str += `<td> => </td>`;
+					str += `<td><a href="${links[slug].url}">${links[slug].url}</a></td></tr>`;
+				}
+				str += `</table>`;
+				document.querySelector("div").innerHTML = str;
+			}
+
+		})();
+	</script>
+</body>
+</html>

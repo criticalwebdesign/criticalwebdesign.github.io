@@ -1,0 +1,22 @@
+{
+    "name": "export-google-sheets",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "start-dev": "nodemon --ignore ./data/ --inspect index.js"
+    },
+    "type": "module",
+    "author": "Owen Mundy",
+    "license": "MIT",
+    "dependencies": {
+        "d3": "^6.6.2",
+        "d3-dsv": "^2.0.0",
+        "fs-extra": "^9.1.0",
+        "https": "^1.0.0",
+        "node-fetch": "^2.6.1",
+        "nodemon": "^3.1.7",
+        "path": "^0.12.7"
+    }
+}
