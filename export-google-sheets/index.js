@@ -28,7 +28,7 @@ async function cleanData(data) {
 	// console.log(data[0]);
 	for (let i = 0; i < data.length; i++) {
 		// skip condition
-		if (!cleanForUrl(data[i].slug)) continue;
+		if (!cleanForUrl(data[i].slug) || !data[i].url) continue;
 
 		// add the props you want ...
 		obj = {
