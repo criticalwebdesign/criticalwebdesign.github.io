@@ -29,7 +29,7 @@
 			const links = await fetch("./data.json").then(data => data.json());
 			var url = new URL(window.location);
 			const hash = url.hash.replace("#", "");
-			// console.log(hash);
+			
 			if (links[hash]) {
 
 				// IF #HASH, FORWARD TO LINK
@@ -38,6 +38,8 @@
 				window.location.replace(links[hash].url);
 			} else {
 
+				console.log(`${hash} was not found in links`);
+				
 				// DISPLAY ALL LINKS
 
 				let str = "";

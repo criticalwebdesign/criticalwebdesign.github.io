@@ -30,8 +30,8 @@ import d3 from "d3";
 export async function getData(url) {
 	const options = {
 		// Download a resource with cache busting, to bypass the cache completely.
-		cache: "no-store"
-	}
+		cache: "no-store",
+	};
 	return fetch(url, options)
 		.then((d) => d.text())
 		.then((rows) => {
@@ -48,3 +48,7 @@ export async function getData(url) {
 }
 // test
 // exports.getData(url);
+
+export function cleanForUrl(str) {
+	return str.trim().replace(/[^a-zA-Z0-9-_]/g, "");
+}
