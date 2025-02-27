@@ -28,13 +28,13 @@ async function cleanData(data) {
 	// console.log(data[0]);
 	for (let i = 0; i < data.length; i++) {
 		// skip condition
-		if (!cleanForUrl(data[i].slug) || !cleanForUrl(data[i].url)) continue;
+		if (!cleanForUrl(data[i].slug)) continue;
 
 		// add the props you want ...
 		obj = {
-			module: cleanForUrl(data[i].module) || "",
+			module: data[i].module || "",
 			slug: cleanForUrl(data[i].slug) || "",
-			url: cleanForUrl(data[i].url) || "",
+			url: data[i].url || "",
 		};
 		clean[obj.slug] = obj;
 	}
