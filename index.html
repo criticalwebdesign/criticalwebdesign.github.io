@@ -45,7 +45,7 @@
 				let str = "";
 				str += `<table>`;
 				for (var slug in links) {
-					str += `<tr><td><a href="./#${slug}">${slug}</a></td>`;
+					str += `<tr><td><a href="#${slug}">${slug}</a></td>`;
 					str += `<td> => </td>`;
 					str += `<td><a href="${links[slug].url}">${links[slug].url}</a></td></tr>`;
 				}
