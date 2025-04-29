@@ -50,5 +50,5 @@ export async function getData(url) {
 // exports.getData(url);
 
 export function cleanForUrl(str) {
-	return str.trim().replace(/[^a-zA-Z0-9-_]/g, "");
+	return str.trim().replace(/[^a-zA-Z0-9-._]/g, "");
 }
