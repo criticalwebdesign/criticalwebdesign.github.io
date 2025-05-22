@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
 	<meta charset="utf-8">
 	<!-- don't cache this page -->
@@ -23,6 +24,7 @@
 		}
 	</style>
 </head>
+
 <body>
 	<div>
 
@@ -34,7 +36,7 @@
 
 			const links = await fetch("./data.json").then(data => data.json());
 			var url = new URL(window.location);
-			const hash = url.hash.replace("#", "");
+			const hash = removePeriodAtEnd(url.hash.replace("#", ""));
 
 			if (links[hash]) {
 
@@ -48,7 +50,7 @@
 
 				if (hash)
 					str = `<h2>The shortlink #${hash} was not found.</h2><p>Maybe you are looking for one of these?</p>`;
-				else 
+				else
 					str = `<p>Shortlinks from Critical Web Design...</p>`;
 
 
@@ -67,6 +69,11 @@
 			}
 
 		})();
+
+		function removePeriodAtEnd(str) {
+			return str.replace(/\.$/, '');
+		}
 	</script>
 </body>
+
 </html>
