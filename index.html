@@ -36,7 +36,7 @@
 
 			const links = await fetch("./data.json").then(data => data.json());
 			var url = new URL(window.location);
-			const hash = removePeriodAtEnd(url.hash.replace("#", ""));
+			const hash = cleanString(url.hash.replace("#", ""));
 
 			if (links[hash]) {
 
@@ -70,8 +70,10 @@
 
 		})();
 
-		function removePeriodAtEnd(str) {
-			return str.replace(/\.$/, '');
+		function cleanString(str) {
+			str = str.replace(/\.$/, '');
+			str = str.replace(/\,$/, '');
+			return str;
 		}
 	</script>
 </body>
