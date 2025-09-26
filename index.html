@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
 	<meta charset="utf-8">
 	<!-- don't cache this page -->
@@ -23,6 +24,7 @@
 		}
 	</style>
 </head>
+
 <body>
 	<div>
 
@@ -34,7 +36,7 @@
 
 			const links = await fetch("./data.json").then(data => data.json());
 			var url = new URL(window.location);
-			const hash = url.hash.replace("#", "");
+			const hash = cleanString(url.hash.replace("#", ""));
 
 			if (links[hash]) {
 
@@ -44,29 +46,34 @@
 				window.location.replace(links[hash].url);
 			} else {
 
-				let str = "";
+				let output = "";
 
 				if (hash)
-					str = `<h2>The shortlink #${hash} was not found.</h2><p>Maybe you are looking for one of these?</p>`;
-				else 
-					str = `<p>Shortlinks from Critical Web Design...</p>`;
+					output = `<h2>The shortlink <code>#${hash}</code> was not found.</h2><p>Maybe you are looking for one of these?</p>`;
+				else
+					output = `<p>Shortlinks from Critical Web Design...</p>`;
 
 
-				console.log(str);
+				console.log(output);
 
 				// DISPLAY ALL LINKS
 
-				str += `<table>`;
+				output += `<table>`;
 				for (var slug in links) {
-					str += `<tr><td><a href="https://criticalwebdesign.github.io#${slug}">${slug}</a></td>`;
-					str += `<td> => </td>`;
-					str += `<td><a href="${links[slug].url}">${links[slug].url}</a></td></tr>`;
+					output += `<tr><td><a href="https://criticalwebdesign.github.io#${slug}">${slug}</a></td>`;
+					output += `<td> => </td>`;
+					output += `<td><a href="${links[slug].url}">${links[slug].url}</a></td></tr>`;
 				}
-				str += `</table>`;
-				document.querySelector("div").innerHTML = str;
+				output += `</table>`;
+				document.querySelector("div").innerHTML = output;
 			}
 
 		})();
+
+		function cleanString(str) {
+			return str.replace(/[^0-9a-z]$/i, '');
+		}
 	</script>
 </body>
+
 </html>
