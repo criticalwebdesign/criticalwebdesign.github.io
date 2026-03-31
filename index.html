@@ -9,7 +9,7 @@
     <meta http-equiv="expires" content="0" />
     <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
     <meta http-equiv="pragma" content="no-cache" />
-    <title>...</title>
+    <title>Critical Web Design Links</title>
 
     <!-- 
     Title: JS Link Shortener
@@ -21,17 +21,81 @@
     <style>
         body {
             font-family: sans-serif;
+            margin: 1rem;
         }
+
+        .container {
+            width: 100%;
+        }
+
         code {
             background-color: #ddd;
             padding: 3px 4px;
             border-radius: 5px;
         }
+
+        .callout * {
+            display: inline-block;
+            margin: .5rem 0 1rem 0
+        }
+
+        .callout h4 {
+            padding: 0;
+            margin: 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        table tr {
+            border-bottom: 1pt solid rgb(228, 228, 228);
+        }
+
+        table tr th,
+        table tr td {
+            font-weight: normal;
+            padding: .4rem 1rem;
+            text-wrap: nowrap;
+            height: 1.4rem;
+            /* border: 1pt solid rgb(228, 228, 228); */
+        }
+
+        table tr th {
+            padding: .8rem 1rem;
+            text-align: center;
+        }
+
+        .align-right {
+            text-align: right;
+        }
+
+        .align-left {
+            text-align: left;
+        }
+
+        table tr td.heading {
+            margin-top: 1rem;
+            padding: .4rem 1rem;
+            background-color: #ddd;
+        }
     </style>
 </head>
 
 <body>
-    <div>
+
+    <div class="container">
+
+        <div class="callout hidden">
+            <h4>Critical Web Design Links</h4>
+            <p> - Bookmark and use these links to resources, references, and inspirational websites while reading and completing exercises in <i>Critical Web Design</i>.</p>
+        </div>
+
+        <div class="links"></div>
 
     </div>
 
@@ -42,44 +106,106 @@
             const links = await fetch("./data.json").then(data => data.json());
             var url = new URL(window.location);
             const hash = cleanString(url.hash.replace("#", ""));
+            console.log("hash", hash);
+            console.log("links", links);
 
-            if (links[hash]) {
+            // #hash exists AND found in list, forward to URL
 
-                // IF #HASH, FORWARD TO LINK
-
+            if (hash && links && links[hash]) {
                 // console.log(links[hash]);
                 window.location.replace(links[hash].url);
-            } else {
-
-                let output = "";
-
-                if (hash)
-                    output = `<h2>The shortlink <code>#${hash}</code> was not found.</h2><p>Maybe you are looking for one of these?</p>`;
-                else
-                    output = `<p>Shortlinks from Critical Web Design...</p>`;
-
-
-                console.log(output);
-
-                // DISPLAY ALL LINKS
-
-                output += `<table>`;
-                for (var slug in links) {
-                    output += `<tr><td><a href="https://criticalwebdesign.github.io#${slug}">${slug}</a></td>`;
-                    output += `<td> => </td>`;
-                    output += `<td><a href="${links[slug].url}">${links[slug].url}</a></td></tr>`;
-                }
-                output += `</table>`;
-                document.querySelector("div").innerHTML = output;
+                return;
             }
+
+            // #hash exists WAS NOT found in list, add message
+
+            let output = "";
+
+            if (hash) {
+                output = `<h2>The shortlink <code>#${hash}</code> was not found.</h2><p>Maybe you are looking for one of these?</p>`;
+            }
+            else {
+                document.querySelector(".callout").classList.remove("hidden");
+            }
+
+            // #display list
+
+            // HEADER
+            output += `<table>
+                    <tr>
+                        <th>page</th>
+                        <th>chapter</th>
+                        <th>module</th>
+                        <th>short link</th>
+                        <th></th>
+                        <th>URL</th>
+                    </tr>
+                    `;
+
+            let count = 0;
+            for (var slug in links) {
+                // if (count < 20) console.log(links[slug]); // test
+
+                output += `<tr>`;
+
+                // PAGE
+                output += `<td class="align-right">${links[slug].page}</td>`;
+
+                // CHAPTER # + TITLE
+                if (links[slug].chapter && links[slug].title) {
+                    output += `<td colspan="5" class="align-left">${links[slug].chapter} - ${links[slug].title}</td>`;
+                }
+                else {
+                    output += `<td></td>`; // chapter
+
+                    // SECTION (MODULE)
+                    if (links[slug].chapter && links[slug].section)
+                        output += `<td class="align-right">${links[slug].chapter}-${links[slug].section}</td>`;
+                    else
+                        output += `<td></td>`;
+
+                    // SHORT LINK
+                    if (links[slug].link)
+                        output += "<td>" + getUrlCodeCwd(`https://criticalwebdesign.github.io#${slug}`) + "</a></td>";
+                    else if (!links[slug].title)
+                        output += `<td></td>`;
+
+
+                    // ARROW 
+
+                    if (links[slug].url)
+                        output += `<td> → </td>`;
+                    else
+                        output += `<td></td>`;
+
+                    // URL
+                    if (links[slug].url)
+                        output += "<td>" + getUrlCode(links[slug].url) + "</a></td>";
+                    else
+                        output += `<td></td>`;
+
+                }
+                count++;
+                output += `</tr>`;
+            }
+            console.log("count", count);
+            output += `</table>`;
+            document.querySelector(".links").innerHTML = output;
 
         })();
 
         function cleanString(str) {
             // replace URL-encoded en- and em-dashes
-            str = str.replace(/%E2%80%93/g, "-"); 
-            str = str.replace(/%E2%80%94/g, "-"); 
+            str = str.replace(/%E2%80%93/g, "-");
+            str = str.replace(/%E2%80%94/g, "-");
             return str.replace(/[^0-9a-z]$/i, '');
+        }
+
+        function getUrlCodeCwd(url) {
+            return `<a target="_blank" href="${url}">${url.replace("https://criticalwebdesign.github.io", "")}</a>`
+        }
+        function getUrlCode(url) {
+            return `<a target="_blank" href="${url}">${url.replace("https://", "")}</a>`
         }
     </script>
 </body>

@@ -7,8 +7,8 @@ $links = array(
 
 	'repo' => 'https://github.com/criticalwebdesign/book',
 	'hello-world' => 'https://codepen.io/owenmundy/pen/QWzJKVz',
-	'think' => 'https://criticalwebdesign.github.io/book/02-view-source/examples/poem-think.html',
-	'felines' => 'https://criticalwebdesign.github.io/book/04-on-the-grid/examples/the-new-york-felines/module4.3-finish.html'
+	'poem-think' => '	https://criticalwebdesign.github.io/book/02-view-source/2-3',
+	'new-york-felines' => 'https://criticalwebdesign.github.io/book/04-on-the-grid/4-3'
 
 );
 
