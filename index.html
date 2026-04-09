@@ -36,7 +36,7 @@
 
         .callout * {
             display: inline-block;
-            margin: .5rem 0 1rem 0
+            margin: .5rem 0 1rem 0;
         }
 
         .callout h4 {
@@ -166,7 +166,7 @@
 
                     // SHORT LINK
                     if (links[slug].link)
-                        output += "<td>" + getUrlCodeCwd(`https://criticalwebdesign.github.io#${slug}`) + "</a></td>";
+                        output += "<td>" + getShortlink(`https://criticalwebdesign.github.io#${slug}`) + "</td>";
                     else if (!links[slug].title)
                         output += `<td></td>`;
 
@@ -180,7 +180,7 @@
 
                     // URL
                     if (links[slug].url)
-                        output += "<td>" + getUrlCode(links[slug].url) + "</a></td>";
+                        output += "<td>" + getTargetlink(links[slug].url) + "</td>";
                     else
                         output += `<td></td>`;
 
@@ -201,10 +201,10 @@
             return str.replace(/[^0-9a-z]$/i, '');
         }
 
-        function getUrlCodeCwd(url) {
+        function getShortlink(url) {
             return `<a target="_blank" href="${url}">${url.replace("https://criticalwebdesign.github.io", "")}</a>`
         }
-        function getUrlCode(url) {
+        function getTargetlink(url) {
             return `<a target="_blank" href="${url}">${url.replace("https://", "")}</a>`
         }
     </script>

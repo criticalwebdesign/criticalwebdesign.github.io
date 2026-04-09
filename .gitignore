@@ -12,3 +12,6 @@ desktop.ini
 
 # Javascript
 node_modules
+
+# testing
+.claude
