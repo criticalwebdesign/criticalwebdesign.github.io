@@ -166,7 +166,7 @@
 
                     // SHORT LINK
                     if (links[slug].link)
-                        output += "<td>" + getShortlink(`https://criticalwebdesign.github.io#${slug}`) + "</td>";
+                        output += "<td>" + getShortlink(`https://criticalwebdesign.github.io/index.html#${slug}`) + "</td>";
                     else if (!links[slug].title)
                         output += `<td></td>`;
 
@@ -202,7 +202,7 @@
         }
 
         function getShortlink(url) {
-            return `<a target="_blank" href="${url}">${url.replace("https://criticalwebdesign.github.io", "")}</a>`
+            return `<a target="_blank" href="${url}">${url.replace("https://criticalwebdesign.github.io/index.html", "")}</a>`
         }
         function getTargetlink(url) {
             return `<a target="_blank" href="${url}">${url.replace("https://", "")}</a>`
